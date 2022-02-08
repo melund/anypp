@@ -1,0 +1,34 @@
+{% set data = load_setup_py_data(setup_file="../setup.py", from_recipe_dir=True) %}
+
+
+package:
+  name: anypp
+  version: {{ data.get("version") }}
+
+source:
+   path: ../
+
+build:
+  number: 0
+  script: "python -m pip install . --no-deps -vv"
+  noarch: python
+  entry_points:
+    - "anypp = anypp.cli:cli"
+
+
+requirements:
+  host:
+    - python >=3.7
+    - pip
+  run:
+    - click
+    - numpy
+
+about:
+    license: MIT
+    license_file: LICENSE
+    summary: Tool for converting meshlab pick point files to anyscript
+    
+extra:
+    recipe-maintainers:
+        - melund
